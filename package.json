@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "inquirer": "^9.2.23",
+    "readline-sync": "^1.4.10"
+  },
+  "name": "color_app_html",
+  "version": "1.0.0",
+  "main": "index.js",
+  
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7"
+  }
+}

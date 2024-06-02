@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Times New Roman", Times, serif;
+  background-color: #3e4560;
+  color: white;
+}
+.container {
+  padding: 0 10px;
+}
+.title {
+  text-align: center;
+  margin: 20px;
+  color: #d6d5ac;
+}
+
+label {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+input {
+  margin-bottom: 25px;
+}
+input[type="text"] {
+  padding: 5px 10px; /*5px vertically and 10px horizontally*/
+
+  border-radius: 3px;
+  border: none;
+}
+.box {
+  height: 100px;
+  width: 100%;
+  background-color: #c6d5ac;
+  margin-bottom: 25px;
+}
