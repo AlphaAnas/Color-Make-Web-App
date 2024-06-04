@@ -4,6 +4,26 @@
 //If hex color is valid, update the background color of inputColor
 const hexInput = document.getElementById("hexInput");
 const inputColor = document.getElementById("inputColor");
+const inputColorText = document.getElementById("inputColorText");
+const alteredColor = document.getElementById("alteredColor");
+const alteredColorText = document.getElementById("alteredColorText");
+
+const lightenText = document.getElementById("lightenText");
+const darkenText = document.getElementById("darkenText");
+const toggleButton = document.getElementById("toggleButton");
+
+toggleButton.addEventListener("click", () => {
+  if (toggleButton.classList.contains("toggled")) {
+    toggleButton.classList.remove("toggled");
+    lightenText.classList.remove("unselected");
+    darkenText.classList.add("unselected");
+  } else {
+    toggleButton.classList.add("toggled");
+    lightenText.classList.add("unselected");
+    darkenText.classList.remove("unselected");
+  }
+  resetHandler();
+});
 
 hexInput.addEventListener("keyup", () => {
   const hex = hexInput.value;
@@ -13,12 +33,16 @@ hexInput.addEventListener("keyup", () => {
   }
   const strippedHex = hex.replace("#", "");
   inputColor.style.backgroundColor = "#" + strippedHex;
+  inputColorText.innerText = `Original Color ${hex}`;
+
+  resetHandler();
 });
 
 const isValidHex = (hex) => {
   if (!hex) return false;
-
+  const validator = new RegExp(/^[0-9a-fA-F]+$/);
   const strippedHex = hex.replace("#", "");
+  if (!validator.test(strippedHex)) return false;
   return strippedHex.length === 3 || strippedHex.length === 6;
 };
 
@@ -64,10 +88,6 @@ const convertRGBToHex = (r, g, b) => {
 const sliderText = document.getElementById("sliderText");
 const slider = document.getElementById("slider");
 
-slider.addEventListener("input", () => {
-  sliderText.textContent = `${slider.value} %`;
-});
-
 //Create the alterColor function which accepts hex value and percentage
 //convert the hex value to rgb
 //increase each r,g,b value by appropriate amount (percentage of 255)
@@ -78,16 +98,39 @@ const alterColor = (hex, percentage) => {
   const { r, g, b } = convertHexToRGB(hex);
 
   const amount = Math.floor((percentage / 100) * 255);
-  const n_red = r + amount;
-  const n_blue = b + amount;
-  const n_green = g + amount;
+  const n_red = increaseWithin0To255(r, amount);
+  const n_blue = increaseWithin0To255(b, amount);
+  const n_green = increaseWithin0To255(g, amount);
 
   console.log(n_red, n_green, n_blue);
   const hexVal = convertRGBToHex(n_red, n_blue, n_green);
   console.log(hexVal);
   return hexVal;
-  
-
+};
+const increaseWithin0To255 = (value, amount) => {
+  return Math.max(0, Math.min(255, value + amount));
 };
 
-// alterColor('ccc',10)
+// alterColor('000',-10)
+slider.addEventListener("input", () => {
+  //check if the hex is valid
+  if (!isValidHex(hexInput.value)) return;
+  sliderText.textContent = `${slider.value} %`;
+
+  //get the altered hex value;
+  const input = hexInput.value;
+  const percentage = toggleButton.classList.contains("toggled")
+    ? -slider.value
+    : slider.value;
+  const alteredHexValue = alterColor(input, percentage);
+  // update the value
+  alteredColor.style.backgroundColor = alteredHexValue;
+  alteredColorText.innerText = `Altered Color ${alteredHexValue}`;
+});
+
+const resetHandler = () => {
+  alteredColor.style.backgroundColor = hexInput.value;
+  alteredColorText.innerText = `Altered Color ${hexInput.value}`;
+  sliderText.textContent = `0 %`;
+  slider.value = 0;
+};

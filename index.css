@@ -4,11 +4,17 @@
 }
 body {
   font-family: "Times New Roman", Times, serif;
-  background-color: #3e4560;
+  background-color: white;
   color: white;
 }
 .container {
+  align-items: center;
+  margin-top: 10%;
+  margin-left: 15%;
   padding: 0 10px;
+  background-color: #333;
+  width: 70%;
+  border-radius: 20px;
 }
 .title {
   text-align: center;
@@ -21,12 +27,14 @@ label {
   font-size: 20px;
   margin-bottom: 5px;
 }
+
 input {
   margin-bottom: 25px;
 }
 input[type="text"] {
-  padding: 5px 10px; /*5px vertically and 10px horizontally*/
-
+  padding: 7px 13px; /*5px vertically and 10px horizontally*/
+  font-size: larger;
+  margin-left: 40%;
   border-radius: 3px;
   border: none;
 }
@@ -35,4 +43,49 @@ input[type="text"] {
   width: 100%;
   background-color: #c6d5ac;
   margin-bottom: 25px;
+}
+.sliderClass {
+  margin-left: 40%;
+}
+
+/* /* display labels and toggle horizontally */
+/* style the toggle button as well as the inner circle using explicit sizing */
+/* choose fun colors */
+/* define an unselected class that will de-emphasize the non-selected text */
+
+.toggle {
+  align-items: center;
+  padding: 3px;
+  text-align: center;
+  display: flex;
+}
+.toggleText {
+  padding: 2px;
+  font-size: 20px;
+}
+.toggle-button {
+  height: 30px;
+  width: 70px;
+  background-color: gray;
+  border-radius: 30px;
+  padding: 5px;
+  margin: 0 10px;
+}
+
+.inner-circle {
+  height: 30px;
+  width: 30px;
+  background-color: white;
+  border-radius: 50%;
+  transition: all 250ms;
+}
+.toggle-button.toggled > .inner-circle {
+  transform: translateX(42px);
+  background-color: #333;
+}
+#darkenText {
+  color: red;
+}
+.unselected {
+  opacity: 0.7;
 }
